@@ -15,6 +15,32 @@ A collection of convenience functions related to saving data to files and export
 ## Example usage
 
 ```
+items: [
+    {
+        xtype: 'rallybutton',
+        style: {'float': 'right'},
+        cls: 'secondary rly-small',
+        frame: false,
+        itemId: 'export-menu-button',
+        iconCls: 'icon-export'
+    }
+],
+
+launch: function() {
+    var exportButton = this.down('#export-menu-button')
+    exportButton.on('click', this._onExport, this);
+    ...
+},
+
+_onExport: function() {
+    var csv = ["Variable Name,Value"]
+    _.each(this.currentValues, function(value, key){
+       csv.push([key, value].join(',')) 
+    });
+    csv = csv.join('\r\n');
+    CArABU.technicalservices.FileUtilities.saveCSVToFile(csv, 'query-counter.csv');
+}
+```
 
 ## Developer Notes
 To Update
